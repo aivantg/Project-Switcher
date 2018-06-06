@@ -1,10 +1,10 @@
 #!/bin/bash
-
+HOMEFILEPATH="/Users/aivant/.project_switcher"
 function export-dev-path(){
   while IFS=, read -r -a array
   do
     export BASEDEVPATH="${array[0]}"
-  done < "/Users/aivant/.project_switcher/base_path.txt"
+  done < "$HOMEFILEPATH/base_path.txt"
 }
 
 export-dev-path
@@ -21,7 +21,7 @@ function dev-path(){
 }
 
 function mkalias(){
-  echo "$1,$2" >> "/Users/aivant/.project_switcher/project_aliases.txt"
+  echo "$1,$2" >> "$HOMEFILEPATH/project_aliases.txt"
 }
 
 function lsalias(){
@@ -29,7 +29,7 @@ function lsalias(){
   while IFS=, read -r -a array
   do
     echo "${array[0]} --> ${array[1]} "
-  done < "/Users/aivant/.project_switcher/project_aliases.txt"
+  done < "$HOMEFILEPATH/project_aliases.txt"
   echo -e "\nAdd more with 'mkalias <shortname> <path>'\nRemove with 'rmalias <shortname>'\n"
 }
 
@@ -59,7 +59,7 @@ function dev(){
   while IFS=, read -r -a array
   do
     PROJALIASES["${array[0]}"]="${array[1]}"
-  done < "/Users/aivant/.project_switcher/project_aliases.txt"
+  done < "$HOMEFILEPATH/project_aliases.txt"
 
   PROJSTRING="$BASEDEVPATH"
   for PARAM in "$@"
