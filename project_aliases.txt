@@ -6,8 +6,4 @@ dj,Playgrounds/Web/Django
 rails,Playgrounds/Web/Rails
 react,Playgrounds/Web/React
 rn,Playgrounds/Mobile/React Native
-bp,Projects/Blueprint
-wikiworld,Projects/WikiWorld/wikiworld
-p3,Projects/Propaganda3
-dream,Projects/Blueprint/Dream
-exdining,Projects/Exeter-Dining-Reboot
+
