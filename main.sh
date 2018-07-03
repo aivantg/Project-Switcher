@@ -64,6 +64,11 @@ function dev(){
   PROJSTRING="$BASEDEVPATH"
   for PARAM in "$@"
   do
+
+    if [[ $PARAM == *-a* ]]; then
+      continue
+    fi
+
     FOLDER=${PROJALIASES[$PARAM]}
     if [ "$FOLDER" = "" ]; then
       CHECKINGPREFIXES=false
@@ -73,4 +78,7 @@ function dev(){
     fi
   done
   cd $PROJSTRING
+  if [[ $* == *-a* ]]; then
+    atom -a .
+  fi
 }
