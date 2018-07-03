@@ -1,5 +1,5 @@
 #!/bin/bash
-HOMEFILEPATH="/Users/aivant/.project_switcher"
+HOMEFILEPATH="/Path/To/Where/This/File/Is/Stored"
 function export-dev-path(){
   while IFS=, read -r -a array
   do
