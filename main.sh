@@ -1,5 +1,6 @@
 #!/bin/bash
-HOMEFILEPATH="/Path/To/Where/This/File/Is/Stored"
+HOMEFILEPATH="/Users/aivant/.project_switcher"
+source "$HOMEFILEPATH/dev-completion.sh"
 function export-dev-path(){
   while IFS=, read -r -a array
   do
@@ -11,7 +12,7 @@ export-dev-path
 
 function update-dev-path(){
   echo $1 > tmp
-  mv tmp /Users/aivant/.project_switcher/base_path.txt
+  mv tmp $HOMEFILEPATH/base_path.txt
   export-dev-path
 }
 
@@ -22,6 +23,7 @@ function dev-path(){
 
 function mkalias(){
   echo "$1,$2" >> "$HOMEFILEPATH/project_aliases.txt"
+  source "$HOMEFILEPATH/dev-completion.sh"
 }
 
 function lsalias(){
@@ -43,13 +45,14 @@ function rmalias(){
       echostring="$echostring\n${array[0]} --> ${array[1]}"
     fi
 
-  done < /Users/aivant/.project_switcher/project_aliases.txt > temp
-  mv temp /Users/aivant/.project_switcher/project_aliases.txt
+  done < $HOMEFILEPATH/project_aliases.txt > temp
+  mv temp $HOMEFILEPATH/project_aliases.txt
   if [ "$echostring" != "Aliases Removed:" ]; then
     echo -e "$echostring"
   else
     echo -e "No aliases found matching pattern: '$1'"
   fi
+  source "$HOMEFILEPATH/dev-completion.sh"
 }
 
 
@@ -69,6 +72,10 @@ function dev(){
       continue
     fi
 
+    if [[ $PARAM == *-o* ]]; then
+      continue
+    fi
+
     FOLDER=${PROJALIASES[$PARAM]}
     if [ "$FOLDER" = "" ]; then
       CHECKINGPREFIXES=false
@@ -80,5 +87,9 @@ function dev(){
   cd $PROJSTRING
   if [[ $* == *-a* ]]; then
     atom -a .
+  fi
+
+  if [[ $* == *-o* ]]; then
+    open .
   fi
 }
